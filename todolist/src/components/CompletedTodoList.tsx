@@ -1,21 +1,34 @@
 import { Todo } from "../models/Todo"
+import styled from "styled-components"
 
 interface props {
-    todoList: Array<Todo>
-    handleDelete: (id: number) => void
+    completedTodoList: Array<Todo>
 }
 
-const TodoList: React.FC<props> = ({todoList, handleDelete}) => {
+const CompletedTodoList: React.FC<props> = ({completedTodoList}) => {
     return (
-        <ul>
-            {todoList.map((todo)=>(
-        <li key={todo.id}>
-            {todo.todo}
-            <button onClick={() => handleDelete(todo.id)}>Delete</button>
-        </li>    
-            ))}
-        </ul>
+        <CompletedTodoListContainer>
+            <h1>Completed</h1>
+            <ul >
+                {completedTodoList.map((todo) => (
+            <li key={todo.id}>
+                {todo.todo}
+            </li>    
+                ))}
+            </ul>
+        </CompletedTodoListContainer>
     )
 }
 
-export default TodoList
+export default CompletedTodoList
+
+const CompletedTodoListContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-left: auto;
+    margin-right:auto;
+    padding: 4rem;
+    background: lightcoral;
+`
+
