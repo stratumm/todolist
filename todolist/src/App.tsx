@@ -11,6 +11,7 @@ export default function App() {
 const [todo, setTodo] = useState<string>("")
 const [todoList, setTodoList] = useState<Array<Todo>>([])
 const [completedTodoList, setCompletedTodoList] = useState<Array<Todo>>([])
+const [edit, setEdit] = useState<string>("")
 
 
 const handleAdd = (e: React.FormEvent) => {
@@ -35,12 +36,19 @@ const handleComplete = (id: number) => {
 }
 }
 
+const handleEdit = (id: number, newText: string) => {
+  const editedText = todoList.map((todo) => todo.id === id ? {...todo, todo: newText} : todo)
+  setTodoList(editedText)
+}
 
   return  (
+
     <Background>
       <InputField handleAdd={handleAdd} todo={todo} setTodo={setTodo}/>
-      <TodoList todoList={todoList} handleDelete={handleDelete} handleComplete={handleComplete}/>
+      <ParentContainer>
+      <TodoList todoList={todoList} handleDelete={handleDelete} handleComplete={handleComplete} handleEdit={handleEdit}/>
       <CompletedTodoList completedTodoList={completedTodoList} />
+      </ParentContainer>
     </Background>
   )
 }
@@ -48,4 +56,10 @@ const handleComplete = (id: number) => {
 
 const Background = styled.div`
   background: royalblue;
+`
+
+const ParentContainer = styled.div `
+  display:flex;
+  justify-content: center; 
+  height: 10rem;
 `
