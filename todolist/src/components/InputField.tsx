@@ -11,7 +11,7 @@ const InputField: React.FC<props> = ({handleAdd, todo, setTodo}) => {
         <Form onSubmit={handleAdd}>
             <input placeholder ="Enter a task" onChange={(e) => setTodo(e.target.value)} value={todo}></input>
             <button type="submit">
-                Submit
+                Add
             </button>
         </Form>
   )
@@ -22,11 +22,13 @@ export default InputField;
 const Form = styled.form`
   display: flex;
   justify-content: center; 
+  margin-top: 4rem;
   input {
     padding: 1.5rem;
     font-family: inherit;
-  }
+      border-radius: 20px;
 
+  }
   button {
   font-family: inherit;
   }

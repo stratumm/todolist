@@ -3,9 +3,10 @@ import styled from "styled-components"
 
 interface props {
     completedTodoList: Array<Todo>
+    backTodo: (id: number) => void
 }
 
-const CompletedTodoList: React.FC<props> = ({completedTodoList}) => {
+const CompletedTodoList: React.FC<props> = ({completedTodoList, backTodo}) => {
     return (
         <CompletedTodoListContainer>
         <h1>Completed</h1>
@@ -13,7 +14,7 @@ const CompletedTodoList: React.FC<props> = ({completedTodoList}) => {
             {completedTodoList.map((todo)=>(
         <ListItem key={todo.id}>
             <TodoText>{todo.todo}</TodoText>
-
+            <Back onClick={() => backTodo(todo.id)}>Back Todo</Back>
         </ListItem>    
             ))}
         </ul>
@@ -29,8 +30,12 @@ const CompletedTodoListContainer = styled.div`
     width: 500px;
     padding: 4rem;
     padding-top: 0;
-    border-right: 2px solid black;
-    background: lightcoral;
+    border: 2px solid black;
+    border-radius: 1rem;
+    background: white;
+    margin-right:0rem;
+    margin-bottom: 10rem;
+
 
     h1 {
         margin-left:auto;
@@ -42,6 +47,8 @@ const CompletedTodoListContainer = styled.div`
 const ListItem = styled.li`
   display: flex;
   margin-bottom: 2rem;
+  justify-content: space-between;
+  
 `;
 
 
@@ -50,3 +57,7 @@ const TodoText = styled.span`
   overflow-wrap: break-word; 
 `;
 
+const Back = styled.button `
+background: none;
+margin-right: 2rem;
+`

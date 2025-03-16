@@ -4,6 +4,7 @@ import TodoList from "./components/Todolist"
 import { Todo } from "./models/Todo"
 import CompletedTodoList from "./components/CompletedTodoList"
 import styled from "styled-components"
+import Modal from "./components/modals/modal"
 
 export default function App() {
 
@@ -11,8 +12,6 @@ export default function App() {
 const [todo, setTodo] = useState<string>("")
 const [todoList, setTodoList] = useState<Array<Todo>>([])
 const [completedTodoList, setCompletedTodoList] = useState<Array<Todo>>([])
-const [edit, setEdit] = useState<string>("")
-
 
 const handleAdd = (e: React.FormEvent) => {
 e.preventDefault()
@@ -41,25 +40,35 @@ const handleEdit = (id: number, newText: string) => {
   setTodoList(editedText)
 }
 
-  return  (
-
-    <Background>
-      <InputField handleAdd={handleAdd} todo={todo} setTodo={setTodo}/>
-      <ParentContainer>
-      <TodoList todoList={todoList} handleDelete={handleDelete} handleComplete={handleComplete} handleEdit={handleEdit}/>
-      <CompletedTodoList completedTodoList={completedTodoList} />
-      </ParentContainer>
-    </Background>
-  )
+const backTodo = (id: number) => {
+  const completedTodo = completedTodoList.find((comp) => comp.id === id )
+  if (completedTodo) {
+    setCompletedTodoList(completedTodoList.filter((comp) => comp.id != id))
+    setTodoList([...todoList, { id: completedTodo.id, todo: completedTodo.todo, completed: false }])
+  } 
 }
 
+const clear = () => {
+  setTodoList([])
+}
 
-const Background = styled.div`
-  background: royalblue;
-`
+  return  (
+
+    <>
+      <Modal/>
+      <InputField handleAdd={handleAdd} todo={todo} setTodo={setTodo}/>
+      <ParentContainer>
+      <TodoList todoList={todoList} handleDelete={handleDelete} handleComplete={handleComplete} handleEdit={handleEdit} clear={clear}/>
+      <CompletedTodoList completedTodoList={completedTodoList} backTodo={backTodo}/>
+      </ParentContainer>
+    </>
+  )
+}
 
 const ParentContainer = styled.div `
   display:flex;
   justify-content: center; 
-  height: 10rem;
+  min-height: 80vh;
+  flex-grow: 1;
+  margin-top: 2rem;
 `

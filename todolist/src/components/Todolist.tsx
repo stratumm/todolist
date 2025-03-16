@@ -7,9 +7,10 @@ interface props {
     handleDelete: (id: number) => void
     handleComplete: (id: number) => void
     handleEdit: (id: number, newText: string) => void
+    clear: () => void
 }
 
-const TodoList: React.FC<props> = ({todoList, handleDelete, handleComplete, handleEdit}) => {
+const TodoList: React.FC<props> = ({todoList, handleDelete, handleComplete, handleEdit, clear}) => {
 
     const [editingId, setEditingId] = useState<number | null>(null); 
     const [editedText, setEditedText] = useState(""); 
@@ -26,7 +27,10 @@ const TodoList: React.FC<props> = ({todoList, handleDelete, handleComplete, hand
 
     return (
         <TodoListContainer>
+        <Heading>
           <h1>To do List</h1>
+          <ClearButton onClick={() => clear()}>Clear All</ClearButton>
+        </Heading>
           <ul>
             {todoList.map((todo) => (
               <ListItem key={todo.id}>
@@ -60,9 +64,11 @@ const TodoListContainer = styled.div`
     width: 500px;
     padding: 4rem;
     padding-top: 0;
-    border-right: 2px solid black;
-    background: lightcoral;
-
+    border: 2px solid black;
+    border-right:none;    
+    border-radius: 1rem;
+    background: white;
+    margin-bottom: 10rem;
     h1 {
         margin-left:auto;
         margin-right:auto;
@@ -78,6 +84,12 @@ const DeleteButton = styled.button `
     display: flex;
 `
 
+const ClearButton = styled.button `
+  display: flex;
+  background: lightgrey;
+  border-radius: 8px;
+  padding: 0.75rem;
+`
 const CompleteButton = styled.button `
     display: flex;
 `
@@ -93,6 +105,9 @@ const ListItem = styled.li`
 
   input {
   font-family:inherit;
+  background:none;
+  padding-right: 5rem;
+  flex-grow: 1;
   }
 `;
 
@@ -112,3 +127,11 @@ const TodoText = styled.span`
   word-wrap: break-word;
 `;
 
+
+const Heading = styled.div`
+    display: flex;
+    align-items: center;
+    button {
+    font-family: inherit;
+    }
+`
