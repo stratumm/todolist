@@ -4,23 +4,27 @@ import TodoList from "./components/Todolist"
 import { Todo } from "./models/Todo"
 import CompletedTodoList from "./components/CompletedTodoList"
 import styled from "styled-components"
-import Modal from "./components/modals/modal"
+import ModalComponent from "./components/modals/Modal"
+
 
 export default function App() {
-
 
 const [todo, setTodo] = useState<string>("")
 const [todoList, setTodoList] = useState<Array<Todo>>([])
 const [completedTodoList, setCompletedTodoList] = useState<Array<Todo>>([])
+const [priority, setPriority] = useState<string>("")
 
 const handleAdd = (e: React.FormEvent) => {
-e.preventDefault()
+  e.preventDefault();
   if (todo) {
-    setTodoList( [...todoList, {id: Date.now(), todo, completed: false}])
-    console.log(todo)
-    setTodo("")
+    if (priority === "asap") {
+      setTodoList([{ id: Date.now(), todo, completed: false, priority: "asap" }, ...todoList]);
+    } else {
+      setTodoList([...todoList, { id: Date.now(), todo, completed: false, priority: "" }]);
+    }
+    setTodo(""); 
   }
-}
+};
 
 const handleDelete = (id: number) => {
   const deletedTodo = todoList.filter((todo) => todo.id!= id)
@@ -44,7 +48,7 @@ const backTodo = (id: number) => {
   const completedTodo = completedTodoList.find((comp) => comp.id === id )
   if (completedTodo) {
     setCompletedTodoList(completedTodoList.filter((comp) => comp.id != id))
-    setTodoList([...todoList, { id: completedTodo.id, todo: completedTodo.todo, completed: false }])
+    setTodoList([...todoList, { id: completedTodo.id, todo: completedTodo.todo, completed: false, priority: ""}])
   } 
 }
 
@@ -53,10 +57,9 @@ const clear = () => {
 }
 
   return  (
-
     <>
-      <Modal/>
-      <InputField handleAdd={handleAdd} todo={todo} setTodo={setTodo}/>
+      <ModalComponent/>
+      <InputField handleAdd={handleAdd} todo={todo} setTodo={setTodo} setPriority={setPriority}/>
       <ParentContainer>
       <TodoList todoList={todoList} handleDelete={handleDelete} handleComplete={handleComplete} handleEdit={handleEdit} clear={clear}/>
       <CompletedTodoList completedTodoList={completedTodoList} backTodo={backTodo}/>

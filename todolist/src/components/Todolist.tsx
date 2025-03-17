@@ -118,7 +118,8 @@ const ButtonContainer = styled.div `
     height: 2.5rem;
 
     button {
-    background: none;
+    background: lightgrey;
+    border-radius: 8px;
     }
 `
 
