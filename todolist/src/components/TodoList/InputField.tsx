@@ -20,17 +20,17 @@ const InputField: React.FC<props> = ({handleAdd, todo, setTodo, setPriority}) =>
     return (
         <Form onSubmit={handleAdd}>
             <input placeholder ="Enter a task" onChange={(e) => setTodo(e.target.value)} value={todo}></input>
-            <RadioForm>
+            <RadioForm >
               <label>
-              <input type="radio" value="asap" onChange= {handleChange} checked={selectedOption === "asap"}/>
+              <input type="radio" name="priority" onChange= {handleChange} checked required/>
               ASAP
              </label>
              <label>
-              <input type="radio" value="important" onChange={handleChange} checked={selectedOption === "important"}/>
+              <input type="radio" name="priority" onChange={handleChange} checked={selectedOption === "important"}/>
               Important
              </label>
              <label>
-              <input type="radio" value="notimportant" onChange={handleChange}  checked={selectedOption === "notimportant"}/>
+              <input type="radio" value="notimportant" name="priority" onChange={handleChange}  checked={selectedOption === "notimportant"}/>
               Not Important
              </label>
             </RadioForm>

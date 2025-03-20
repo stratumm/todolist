@@ -32,16 +32,18 @@ const ModalComponent: React.FC<props> = ({todoList}) => {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            width: "28rem",
-            height: "10rem",
+            width: "25rem",
+            height: "20rem",
             padding: "20px",
             borderRadius: "8px",
           },
         }}
       >
-        <h2 style={{display: "flex", justifyContent: "center"}}>TODO</h2>
+        <HeadingContainer>
+        <h2>TODO</h2>
+        <button onClick={closeModal} style={{background:"none", border:"none", cursor:"pointer", fontSize:"2rem"}}>&times;</button>
+        </HeadingContainer>
         <p>#TODO manage adding and deleting things here</p>
-        <button onClick={closeModal}>&times;</button>
         <FilterInput todoList={todoList}/>
       </Modal>
     </div>
@@ -58,3 +60,23 @@ const AddButton = styled.button`
     border-radius: 8px;
     padding: 1rem;
 `
+
+const HeadingContainer = styled.div`
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+
+  h2 {
+    flex: 1;
+    text-align:center;
+  }
+
+  button {
+    top: 0; 
+    right: 0; 
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+`;
