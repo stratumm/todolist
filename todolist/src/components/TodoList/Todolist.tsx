@@ -1,4 +1,4 @@
-import { Todo } from "../models/Todo"
+import { Todo } from "../../models/Todo"
 import styled from "styled-components"
 import {useState} from "react"
 

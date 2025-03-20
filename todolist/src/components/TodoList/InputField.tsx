@@ -58,7 +58,7 @@ const Form = styled.form`
   }
 `;
 
-const RadioForm = styled.form`
+const RadioForm = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 2rem;

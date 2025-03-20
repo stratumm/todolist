@@ -1,9 +1,9 @@
 import { useState } from "react"
-import InputField from "./components/InputField"
-import TodoList from "./components/Todolist"
+import InputField from "./components/TodoList/InputField"
 import { Todo } from "./models/Todo"
-import CompletedTodoList from "./components/CompletedTodoList"
+import CompletedTodoList from "./components/TodoList/CompletedTodoList"
 import styled from "styled-components"
+import TodoList from "./components/TodoList/Todolist"
 import ModalComponent from "./components/modals/Modal"
 
 
@@ -37,6 +37,7 @@ const handleComplete = (id: number) => {
   setCompletedTodoList([...completedTodoList, { ...completedTodo, completed: true }]);
   setTodoList(todoList.filter((todo) => todo.id != id))
 }
+
 }
 
 const handleEdit = (id: number, newText: string) => {
@@ -58,11 +59,11 @@ const clear = () => {
 
   return  (
     <>
-      <ModalComponent/>
+      <ModalComponent todoList={todoList}/>
       <InputField handleAdd={handleAdd} todo={todo} setTodo={setTodo} setPriority={setPriority}/>
       <ParentContainer>
-      <TodoList todoList={todoList} handleDelete={handleDelete} handleComplete={handleComplete} handleEdit={handleEdit} clear={clear}/>
-      <CompletedTodoList completedTodoList={completedTodoList} backTodo={backTodo}/>
+        <TodoList todoList={todoList} handleDelete={handleDelete} handleComplete={handleComplete} handleEdit={handleEdit} clear={clear}/>
+        <CompletedTodoList completedTodoList={completedTodoList} backTodo={backTodo}/>
       </ParentContainer>
     </>
   )

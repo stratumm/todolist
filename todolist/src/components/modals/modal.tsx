@@ -1,17 +1,23 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import styled from "styled-components"
+import { Todo } from "../../models/Todo";
+import FilterInput from "../TodoList/FilterInput";
 
-
-const ModalComponent = () => {
+interface props {
+  todoList: Array<Todo>
+}
+Modal.setAppElement("#root")
+const ModalComponent: React.FC<props> = ({todoList}) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+
   return (
     <div>
-      <AddButton onClick={openModal}>Add Todo</AddButton>
+      <AddButton onClick={openModal}>Filter</AddButton>
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
@@ -36,6 +42,7 @@ const ModalComponent = () => {
         <h2 style={{display: "flex", justifyContent: "center"}}>TODO</h2>
         <p>#TODO manage adding and deleting things here</p>
         <button onClick={closeModal}>&times;</button>
+        <FilterInput todoList={todoList}/>
       </Modal>
     </div>
   );
