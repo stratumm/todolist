@@ -1,5 +1,7 @@
 import { Todo } from "../../models/Todo"
 import styled from "styled-components"
+import { ListItem } from "./Todolist"
+import { ButtonContainer } from "./Todolist"
 
 interface props {
     completedTodoList: Array<Todo>
@@ -14,7 +16,9 @@ const CompletedTodoList: React.FC<props> = ({completedTodoList, backTodo}) => {
             {completedTodoList.map((todo)=>(
         <ListItem key={todo.id}>
             <TodoText>{todo.todo}</TodoText>
-            <Back onClick={() => backTodo(todo.id)}>Back Todo</Back>
+            <ButtonContainer>
+            <button onClick={() => backTodo(todo.id)}>Back Todo</button>
+            </ButtonContainer>
         </ListItem>    
             ))}
         </ul>
@@ -44,20 +48,9 @@ const CompletedTodoListContainer = styled.div`
 
 `
 
-const ListItem = styled.li`
-  display: flex;
-  margin-bottom: 2rem;
-  justify-content: space-between;
-  
-`;
-
-
 const TodoText = styled.span`
   max-width: 100%;
   overflow-wrap: break-word; 
 `;
 
-const Back = styled.button `
-background: none;
-margin-right: 2rem;
-`
+

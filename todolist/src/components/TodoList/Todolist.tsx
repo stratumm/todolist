@@ -94,10 +94,11 @@ const CompleteButton = styled.button `
     display: flex;
 `
 
-const ListItem = styled.li`
+export const ListItem = styled.li`
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
+  align-items:center;
 
   button {
   font-family:inherit;
@@ -111,7 +112,7 @@ const ListItem = styled.li`
   }
 `;
 
-const ButtonContainer = styled.div `
+export const ButtonContainer = styled.div `
     display: flex;
     gap: 0.5rem;
     width: 10rem;
